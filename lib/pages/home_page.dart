@@ -12,29 +12,57 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+    final newWorkoutNameControler = TextEditingController();
 
-  void createNewWorkout()
-  {
-    showDialog(context: context, builder: (context) => AlertDialog(
-      title: Text("Create new workout "),
-      content: TextField(),
-      actions: [
-        // save button
-        MaterialButton(
-          onPressed: (){},
-          child: Text('save'),
+  void createNewWorkout(){
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text("Create new workout "),
+        content: TextField(
+          controller: newWorkoutNameControler,
         ),
-        
-        // cancel button
+          actions: [
+            // save button
+            MaterialButton(
+              onPressed: save,
+              child: Text('save'),
+            ),
+            
+            // cancel button
         MaterialButton(
-          onPressed: (){},
-          child: Text('cancel'),
+          onPressed: cansel,
+            child: Text('cancel'),
         )
       ],
     ));
   }
 
 
+    //save workout
+    void save(){
+      //get workout name for the text controller 
+      String newEorkoutName = newWorkoutNameControler.text;
+      // add workout to the workout list 
+      Provider.of<WorkoutData>(context, listen: false).addWorkout(newEorkoutName);
+      // to pop out after save 
+      Navigator.pop(context);
+      // to clear the text filed 
+      clear();
+    }
+
+    //cansel 
+    void cansel(){
+      //to pop out after cansel 
+      Navigator.pop(context);
+      // to clear the text filed
+      clear();
+    }
+
+      // clear controler 
+      void clear(){
+        newWorkoutNameControler.clear();
+      }
 
   @override
   Widget build(BuildContext context) {
