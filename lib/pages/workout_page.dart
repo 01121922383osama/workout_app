@@ -12,6 +12,12 @@ class Workoutpage extends StatefulWidget {
 }
 
 class _WorkoutpageState extends State<Workoutpage> {
+  // check box was tapped
+  void onCheckBoxChanged(String workoutName, String exerciesName) {
+    Provider.of<WorkoutData>(context, listen: false)
+        .checkOffExercies(workoutName, exerciesName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<WorkoutData>(
@@ -20,27 +26,36 @@ class _WorkoutpageState extends State<Workoutpage> {
         body: ListView.builder(
             itemCount: value.theNumberOfExerciseInWorkout(widget.workoutName),
             itemBuilder: (context, index) => ExerciseTile(
-                  exerciseName: value
-                      .getRelaventWorkout(widget.workoutName)
-                      .exercise[index]
-                      .name,
-                  weight: value
-                      .getRelaventWorkout(widget.workoutName)
-                      .exercise[index]
-                      .weight,
-                  reps: value
-                      .getRelaventWorkout(widget.workoutName)
-                      .exercise[index]
-                      .reps,
-                  sets: value
-                      .getRelaventWorkout(widget.workoutName)
-                      .exercise[index]
-                      .sets,
-                  isCompleted: value
-                      .getRelaventWorkout(widget.workoutName)
-                      .exercise[index]
-                      .isCompleted,
-                )),
+                exerciseName: value
+                    .getRelaventWorkout(widget.workoutName)
+                    .exercise[index]
+                    .name,
+                weight: value
+                    .getRelaventWorkout(widget.workoutName)
+                    .exercise[index]
+                    .weight,
+                reps: value
+                    .getRelaventWorkout(widget.workoutName)
+                    .exercise[index]
+                    .reps,
+                sets: value
+                    .getRelaventWorkout(widget.workoutName)
+                    .exercise[index]
+                    .sets,
+                isCompleted: value
+                    .getRelaventWorkout(widget.workoutName)
+                    .exercise[index]
+                    .isCompleted,
+                onCheckBoxChanged: (val) {
+                  onCheckBoxChanged(
+                    widget.workoutName,
+                    value
+                        .getRelaventWorkout(widget.workoutName)
+                        .exercise[index]
+                        .name,
+                  );
+                  print(value);
+                })),
       ),
     );
   }

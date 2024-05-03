@@ -54,7 +54,8 @@ class WorkoutData extends ChangeNotifier {
     Exercise relaventExercies = getRelaventExercies(workoutName, exerciesName);
 
     // check off boolean to show the user completed the exercise
-    relaventExercies.isCompleted == !relaventExercies.isCompleted;
+    // relaventExercies.isCompleted == !relaventExercies.isCompleted;  <===  `this was somthing u fixed your own habibi`
+    relaventExercies.isCompleted = !relaventExercies.isCompleted;
     notifyListeners();
   }
 
