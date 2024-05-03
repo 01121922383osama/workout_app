@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:workout_app/data/work_out_data.dart';
+import 'package:workout_app/pages/workout_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -37,6 +38,17 @@ class _HomePageState extends State<HomePage> {
       ],
     ));
   }
+
+      //go to workout page
+      void goToWorkoutPage(String workoutName){
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context)=> Workoutpage(
+              workoutName: workoutName,
+          ),
+        ));
+      }
 
 
     //save workout
@@ -84,6 +96,11 @@ class _HomePageState extends State<HomePage> {
           itemCount: value.getWorkoutList().length ,
           itemBuilder: (context , index) => ListTile(
             title: Text(value.getWorkoutList()[index].name),
+            trailing: IconButton(
+              icon: Icon(Icons.arrow_forward_ios),
+              onPressed: () => goToWorkoutPage(value.getWorkoutList()[index].name),
+            ),
+
           ),
         ),
       ),
